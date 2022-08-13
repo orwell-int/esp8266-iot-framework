@@ -33,13 +33,13 @@
       "webpack-dev-server": "^3.10.3"
     },
     "dependencies": {
-      "history": "^4.10.1",
-      "preact": "^10.4.0",
-      "prop-types": "^15.7.2",
-      "react-icons": "^4.2.0",
-      "react-router-dom": "^5.1.2",
+      "history": "^5.3.0",
+      "preact": "^10.10.2",
+      "prop-types": "^15.8.1",
+      "react-icons": "^4.4.0",
+      "react-router-dom": "^6.3.0",
       "react-vis": "^1.11.7",
-      "styled-components": "^5.1.0",
+      "styled-components": "^5.3.5",
       "styled-normalize": "^8.0.7"
     }
   }

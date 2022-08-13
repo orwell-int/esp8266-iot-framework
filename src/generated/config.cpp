@@ -1,10 +1,57 @@
 #include <Arduino.h>
 #include "config.h"
 
-uint32_t configVersion = 3113778868; //generated identifier to compare config with EEPROM
+uint32_t configVersion = 1935503870; //generated identifier to compare config with EEPROM
 
 const configData defaults PROGMEM =
 {
-	"ESP8266 IoT Framework",
-	"en"
+	"",
+	40,
+	{230,213,4},
+	{188,3,3},
+	{0,255,45},
+	{237,18,204},
+	{22,233,133},
+	{23,5,255},
+	30,
+	60,
+	7,
+	0,
+	20,
+	0,
+	true,
+	7,
+	0,
+	20,
+	0,
+	true,
+	7,
+	0,
+	20,
+	0,
+	true,
+	7,
+	0,
+	20,
+	0,
+	true,
+	7,
+	0,
+	20,
+	0,
+	true,
+	7,
+	0,
+	20,
+	0,
+	true,
+	7,
+	0,
+	20,
+	0,
+	true,
+	7,
+	0,
+	20,
+	0
 };
