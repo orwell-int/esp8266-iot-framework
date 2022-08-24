@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import {BrowserRouter, Switch, Route, NavLink} from "react-router-dom";
+import {BrowserRouter, Routes, Route, NavLink} from "react-router-dom";
 import { FiBox as HeaderIcon } from "react-icons/fi";
 
 import {GlobalStyle, Menu, Header, Page, Hamburger} from "./comp/UiComponents";
@@ -23,7 +23,8 @@ if (Config.find(entry => entry.name === "language")) {
     loc = require("./lang/en.json");
 }
 
-let url = "http://192.168.1.54";
+//let url = "http://192.168.1.54";
+let url = "http://127.0.0.1";
 if (process.env.NODE_ENV === "production") {url = window.location.origin;}
 
 if (process.env.NODE_ENV === "development") {require("preact/debug");}
@@ -91,28 +92,33 @@ function Root() {
             </Header>
         
             <Page>
-                <Switch>
-                    <Route exact path="/files">
-                        <FilePage API={url} />
+                <Routes>
+                    <Route exact path="files" element={
+                            <FilePage API={url} />
+                        }>
                     </Route>
-                    <Route exact path="/config">
-                        <ConfigPage API={url} 
-                            configData={configData}
-                            binSize={binSize}
-                            requestUpdate={fetchData} />
+                    <Route exact path="config" element={
+                            <ConfigPage API={url}
+                                configData={configData}
+                                binSize={binSize}
+                                requestUpdate={fetchData} />
+                        }>
                     </Route>
-                    <Route exact path="/dashboard">
-                        <DashboardPage API={url} 
-                            socket={socket}
-                            requestData={() => {return displayData;}} />
+                    <Route exact path="dashboard" element={
+                            <DashboardPage API={url}
+                                socket={socket}
+                                requestData={() => {return displayData;}} />
+                        }>
                     </Route>
-                    <Route exact path="/firmware">
-                        <FirmwarePage API={url} />
+                    <Route exact path="firmware" element={
+                            <FirmwarePage API={url} />
+                        }>
                     </Route>
-                    <Route path="/">
-                        <WifiPage API={url} />
+                    <Route path="/" element={
+                            <WifiPage API={url} />
+                        }>
                     </Route>
-                </Switch>
+                </Routes>
             </Page>
 
         </BrowserRouter>
