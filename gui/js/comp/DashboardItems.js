@@ -239,14 +239,12 @@ export function DashboardItems(props) {
                             </p>
                         </>;
                     } else if (inputType == "slider") {
-                        
-                        const [rangeval, setRangeval] = useState(null);
-                        
+
                         confItems = <>{confItems}
                             <p>
                                 <label htmlFor={props.items[i].name}><b>{props.items[i].label || props.items[i].name}</b>:</label>
-                                <input type="range" id={props.items[i].name} name={props.items[i].name} value={rangeval || value} {...conditionalAttributes} disabled={props.items[i].disabled} onInput={(event) => setRangeval(event.target.value)} />
-                                <output>{rangeval || value}</output>
+                                <input type="range" id={props.items[i].name} name={props.items[i].name} value={value} {...conditionalAttributes} disabled={props.items[i].disabled} onInput={(event) => { let output=document.getElementById(event.target.id).nextElementSibling; output.value = event.target.value }} />
+                                <output>{value}</output>
                             </p>
                         </>;
                     } else {
