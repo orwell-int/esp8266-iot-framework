@@ -31,6 +31,59 @@ if (process.env.NODE_ENV === "development") {require("preact/debug");}
 
 const displayData = new Array();
 
+function pad2(number)
+{
+    if (number < 10)
+    {
+        return '0' + number;
+    }
+    else
+    {
+        return number;
+    }
+}
+
+function updateClock(timestamp, ok)
+{
+    var date;
+    if (timestamp)
+    {
+        date = new Date(timestamp * 1000);
+    }
+    else
+    {
+        date = new Date();
+    }
+    var dateString = "" + date.getUTCFullYear() + "/" + pad2(date.getUTCMonth() + 1)
+        + "/" + pad2(date.getUTCDate()) + " " + pad2(date.getUTCHours()) + ":"
+        + pad2(date.getUTCMinutes()) /*+ ":" + pad2(date.getUTCSeconds())*/;
+    console.log(dateString);
+    var element = document.getElementById("clock");
+    if (ok)
+    {
+        element.style.color = "white";
+    }
+    else
+    {
+        element.style.color = "red";
+    }
+    element.innerText = dateString;
+}
+
+function refreshClock()
+{
+    fetch(`${url}/api/clock/get`)
+        .then(response => response.json())
+        .then(data => updateClock(data.timestamp, true))
+        .catch(error => {
+            console.error('There was an error!', error);
+            updateClock(null, false);
+        });
+}
+
+// refresh clock every 20 seconds (but show only minutes)
+setInterval(refreshClock, 20000);
+
 function Root() {
     
     const [menu, setMenu] = useState(false);
@@ -44,6 +97,18 @@ function Root() {
         setSocket(ws);
         fetchData();        
     }, []);
+
+    // failed attempt
+    // useEffect(() => {
+    //     console.log('useEffect updateCLock');
+    //     fetch(`${url}/api/clock/get`)
+    //         .then(response => response.json())
+    //         .then(data => updateClock(data.timestamp, true))
+    //         .catch(error => {
+    //             console.error('There was an error!', error);
+    //             updateClock(null, false);
+    //         });
+    // }, [true, 1]); // active and refreshed every second
 
     function wsMessage(event) {
         event.data.arrayBuffer().then((buffer) => {                
@@ -79,6 +144,7 @@ function Root() {
 
             <Header>
                 <h1><HeaderIcon style={{verticalAlign:"-0.1em"}} /> {projectName} {projectVersion}</h1>
+                <h2><p id="clock" style="color :white; ">2022-01-02 12:34</p></h2>
 
                 <Hamburger onClick={() => setMenu(!menu)} />
                 <Menu className={menu ? "" : "menuHidden"}>
