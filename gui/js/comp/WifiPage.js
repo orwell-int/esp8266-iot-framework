@@ -28,6 +28,16 @@ export function WifiPage(props) {
             });
     }, []);
 
+    useEffect(() => {
+        fetch(`${props.API}/api/mac/get`)
+            .then((response) => {
+                return response.json();
+            })
+            .then((mac) => {
+                document.getElementById("mac_address").innerText = mac.address;
+            });
+    }, []);
+
     function changeWifi() {
         if (dhcpForm) {
             fetch(`${props.API}/api/wifi/set?ssid=${escape(document.getElementById("ssid").value.trim())}&pass=${escape(document.getElementById("pass").value.trim())}`, { method: "POST" });
@@ -79,7 +89,9 @@ export function WifiPage(props) {
     
     let page = <><h2>{loc.titleWifi}</h2> 
         <h3>{loc.globalStatus}</h3></>;
-    
+
+    page = <>{page}<p><label>Mac address: </label><label id="mac_address"></label></p></>;
+
     let connectedTo;
     if (state.captivePortal === true) {
         connectedTo = loc.wifiCP;
