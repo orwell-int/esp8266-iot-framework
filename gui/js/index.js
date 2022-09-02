@@ -81,8 +81,21 @@ function refreshClock()
         });
 }
 
-// refresh clock every 20 seconds (but show only minutes)
-setInterval(refreshClock, 20000);
+// the first calls will be with one second interval and next one twenty.
+var clock_count = 10;
+
+const id_clock = setInterval(
+    () =>
+    {
+        refreshClock();
+        clock_count -= 1;
+        if (clock_count <= 0)
+        {
+            clearInterval(id_clock);
+            setInterval(refreshClock, 20000);
+        }
+    },
+    1000);
 
 function Root() {
     
