@@ -14,4 +14,5 @@ def preBuildHTMLFun():
         call("npx browserslist@latest --update-db", shell=True)
 
     print("Running npm run build...")
-    call("npm run build", shell=True)
+    if call("npm run build", shell=True) != 0:
+        raise("JAMBON failed")

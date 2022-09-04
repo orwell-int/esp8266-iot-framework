@@ -96,11 +96,12 @@ module.exports = (env, argv) => ({
                 if (argv.mode === "production") {
                     const source = "./dist/index.html.gz";
                     const destination = "./src/generated/html.h";
-
+                    console.log("JAMBON 1");
                     const wstream = fs.createWriteStream(destination);
                     wstream.on("error", function (err) {
                         console.log(err);
                     });
+                    console.log("JAMBON 2");
 
                     const data = fs.readFileSync(source);
                     
@@ -123,9 +124,12 @@ module.exports = (env, argv) => ({
                     wstream.write("\n\n#endif\n");
 
                     wstream.end();
+                    console.log("JAMBON 3");
 
                     del([source]);
                     del("./dist/");
+                    console.log("JAMBON 4");
+
                 }
             },
         }),
